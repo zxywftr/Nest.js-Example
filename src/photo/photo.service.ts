@@ -2,7 +2,6 @@ import { Injectable, OnModuleInit, Scope } from '@nestjs/common';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
 import { ModuleRef } from '@nestjs/core';
-import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 @Injectable({ scope: Scope.DEFAULT })
 export class PhotoService implements OnModuleInit {
@@ -14,8 +13,13 @@ export class PhotoService implements OnModuleInit {
    * @memberof PhotoService
    */
   onModuleInit() {
-    const service = this.moduleRef.get(CACHE_MANAGER);
-    console.log(service.get('time'));
+    // This method retrieves a provider, controller, or injectable (e.g., guard, interceptor, etc.) that exists (has been instantiated) in the current module using its injection token/class name.
+    const service = this.moduleRef.get(PhotoService);
+    service.testServiceMethod()
+  }
+
+  testServiceMethod(){
+    console.log('moduleRef accessed');
   }
 
   create(createPhotoDto: CreatePhotoDto) {
