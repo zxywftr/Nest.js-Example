@@ -16,7 +16,9 @@ import { ResponseInterceptor } from './common/interceptors/response.interceptor'
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule, {
     // Enabling application's Cross-origin resource sharing (CORS) capability. @see https://docs.nestjs.com/security/cors
-    cors: true,
+    cors: {
+      origin:'*'
+    },
   });
 
   /**
